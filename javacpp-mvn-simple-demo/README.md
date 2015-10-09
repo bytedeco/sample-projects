@@ -15,4 +15,4 @@ And to execute:
 mvn "-Dexec.args=-classpath %classpath somepackage.MultiplyDemo" -Dexec.executable=java exec:exec
 ```
 
-By uncommenting the maven-assembly-plugin you can compile to a jar with the dependencies (i.e. the javacpp jar file) bundled inside - then you can run the demo with java -jar whatever.jar
+By uncommenting the maven-assembly-plugin you can compile to a jar with the dependencies (i.e. the javacpp jar file) bundled inside - then you can run the demo with ```java -jar whatever.jar```
