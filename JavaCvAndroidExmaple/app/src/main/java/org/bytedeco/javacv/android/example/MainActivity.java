@@ -11,8 +11,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.javacv.android.exmaple.R;
-
 import java.util.HashMap;
 import java.util.Map;
 

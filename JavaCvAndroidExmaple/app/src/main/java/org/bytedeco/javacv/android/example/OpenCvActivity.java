@@ -5,8 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.javacv.android.exmaple.R;
-
 import org.bytedeco.javacv.android.example.utils.StorageHelper;
 
 import org.bytedeco.javacpp.opencv_core;
