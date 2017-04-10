@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.javacv.android.exmaple;
+package org.bytedeco.javacv.android.example;
 
 import android.app.Activity;
 import android.app.AlertDialog;

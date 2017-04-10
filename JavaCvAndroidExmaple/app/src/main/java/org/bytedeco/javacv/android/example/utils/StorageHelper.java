@@ -30,7 +30,7 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
-package com.javacv.android.exmaple.utils;
+package org.bytedeco.javacv.android.example.utils;
 
 import android.content.Context;
 import android.util.Log;

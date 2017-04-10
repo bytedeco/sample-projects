@@ -1,11 +1,13 @@
-package com.javacv.android.exmaple;
+package org.bytedeco.javacv.android.example;
 
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.javacv.android.exmaple.utils.StorageHelper;
+import com.javacv.android.exmaple.R;
+
+import org.bytedeco.javacv.android.example.utils.StorageHelper;
 
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacpp.opencv_core.Point;

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.javacv.android.exmaple">
+    package="org.bytedeco.javacv.android.example">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity">
+        <activity android:name="org.bytedeco.javacv.android.example.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,10 +28,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RecordActivity"
+            android:name="org.bytedeco.javacv.android.example.RecordActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".OpenCvActivity"
+            android:name="org.bytedeco.javacv.android.example.OpenCvActivity"
             android:screenOrientation="portrait" />
     </application>
 
