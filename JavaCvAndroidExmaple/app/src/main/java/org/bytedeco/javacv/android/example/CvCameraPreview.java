@@ -486,13 +486,8 @@ public class CvCameraPreview extends SurfaceView implements SurfaceHolder.Callba
                 frameHeight = bestPreviewSize.height;
 
                 parameters.setPreviewSize(bestPreviewSize.width, bestPreviewSize.height);
-                parameters.setPictureSize(bestPictureSize.width, bestPictureSize.height);
 
                 parameters.setPreviewFormat(ImageFormat.NV21); // NV21 is the most supported format for preview frames
-//                parameters.setPictureFormat(ImageFormat.JPEG); // JPEG for full resolution images
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH && !Build.MODEL.equals("GT-I9100"))
-                    parameters.setRecordingHint(true);
 
                 List<String> FocusModes = parameters.getSupportedFocusModes();
                 if (FocusModes != null && FocusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)) {

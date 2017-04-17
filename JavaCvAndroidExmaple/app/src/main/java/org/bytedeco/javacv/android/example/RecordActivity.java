@@ -39,6 +39,7 @@ public class RecordActivity extends Activity implements OnClickListener, CvCamer
     private FFmpegFrameRecorder recorder;
     private long startTime = 0;
     private OpenCVFrameConverter.ToMat converterToMat = new OpenCVFrameConverter.ToMat();
+    private final Object semaphore = new Object();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -212,7 +213,9 @@ public class RecordActivity extends Activity implements OnClickListener, CvCamer
 
     public void startRecording() {
         try {
-            recorder.start();
+            synchronized (semaphore) {
+                recorder.start();
+            }
             startTime = System.currentTimeMillis();
             recording = true;
         } catch (FFmpegFrameRecorder.Exception e) {
@@ -225,8 +228,10 @@ public class RecordActivity extends Activity implements OnClickListener, CvCamer
             recording = false;
             Log.v(LOG_TAG, "Finishing recording, calling stop and release on recorder");
             try {
-                recorder.stop();
-                recorder.release();
+                synchronized (semaphore) {
+                    recorder.stop();
+                    recorder.release();
+                }
             } catch (FFmpegFrameRecorder.Exception e) {
                 e.printStackTrace();
             }
@@ -266,16 +271,18 @@ public class RecordActivity extends Activity implements OnClickListener, CvCamer
     @Override
     public Mat onCameraFrame(Mat mat) {
         if (recording && mat != null) {
-            try {
-                Frame frame = converterToMat.convert(mat);
-                long t = 1000 * (System.currentTimeMillis() - startTime);
-                if (t > recorder.getTimestamp()) {
-                    recorder.setTimestamp(t);
+            synchronized (semaphore) {
+                try {
+                    Frame frame = converterToMat.convert(mat);
+                    long t = 1000 * (System.currentTimeMillis() - startTime);
+                    if (t > recorder.getTimestamp()) {
+                        recorder.setTimestamp(t);
+                    }
+                    recorder.record(frame);
+                } catch (FFmpegFrameRecorder.Exception e) {
+                    Log.v(LOG_TAG, e.getMessage());
+                    e.printStackTrace();
                 }
-                recorder.record(frame);
-            } catch (FFmpegFrameRecorder.Exception e) {
-                Log.v(LOG_TAG, e.getMessage());
-                e.printStackTrace();
             }
         }
         return mat;
