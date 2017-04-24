@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        app:camera_type="front" />
+        app:camera_type="front"
+        app:scale_type="full" />
 
 </FrameLayout>

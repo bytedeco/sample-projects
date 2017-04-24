@@ -10,7 +10,8 @@
         android:id="@+id/camera_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:camera_type="back" />
+        app:camera_type="back"
+        app:scale_type="full" />
 
     <Button
         android:id="@+id/recorder_control"

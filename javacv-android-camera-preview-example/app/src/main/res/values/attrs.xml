@@ -3,9 +3,14 @@
 
     <declare-styleable name="CvCameraPreview">
 
-        <attr name="camera_type" format="integer" >
+        <attr name="camera_type" format="integer">
             <enum name="back" value="99" />
             <enum name="front" value="98" />
+        </attr>
+
+        <attr name="scale_type" format="integer">
+            <enum name="fit" value="1" />
+            <enum name="full" value="2" />
         </attr>
 
     </declare-styleable>

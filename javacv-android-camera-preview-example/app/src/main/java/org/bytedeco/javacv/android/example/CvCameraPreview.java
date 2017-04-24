@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2014 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package org.bytedeco.javacv.android.example;
 
 import android.app.Activity;
@@ -65,8 +49,11 @@ public class CvCameraPreview extends SurfaceView implements SurfaceHolder.Callba
     private static final int STOPPED = 0;
     private static final int STARTED = 1;
 
-    private static final int CAMERA_BACK = 99;
-    private static final int CAMERA_FRONT = 98;
+    public static final int CAMERA_BACK = 99;
+    public static final int CAMERA_FRONT = 98;
+
+    public static final int SCALE_FIT = 1;
+    public static final int SCALE_FULL = 2;
 
     private static final int MAGIC_TEXTURE_ID = 10;
 
@@ -128,27 +115,32 @@ public class CvCameraPreview extends SurfaceView implements SurfaceHolder.Callba
     private Camera cameraDevice;
     private SurfaceTexture surfaceTexture;
     private int frameWidth, frameHeight;
+    private int scaleType = SCALE_FIT;
 
     public CvCameraPreview(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.CvCameraPreview);
-        int type = array.getInt(R.styleable.CvCameraPreview_camera_type, CAMERA_BACK);
+        int camType = array.getInt(R.styleable.CvCameraPreview_camera_type, CAMERA_BACK);
+        int scaleType = array.getInt(R.styleable.CvCameraPreview_scale_type, SCALE_FIT);
         array.recycle();
 
-        initializer(type == CAMERA_BACK ? Camera.CameraInfo.CAMERA_FACING_BACK : Camera.CameraInfo.CAMERA_FACING_FRONT);
+        initializer(camType == CAMERA_BACK ? Camera.CameraInfo.CAMERA_FACING_BACK : Camera.CameraInfo.CAMERA_FACING_FRONT, scaleType);
+
     }
 
-    public CvCameraPreview(Context context, int camType) {
+    public CvCameraPreview(Context context, int camType, int scaleType) {
         super(context);
 
-        initializer(camType);
+        initializer(camType == CAMERA_BACK ? Camera.CameraInfo.CAMERA_FACING_BACK : Camera.CameraInfo.CAMERA_FACING_FRONT, scaleType);
     }
 
-    private void initializer(int camType) {
+    private void initializer(int camType, int scaleType) {
+
         this.surfaceHolder = this.getHolder();
         this.surfaceHolder.addCallback(this);
 
+        this.scaleType = scaleType;
         this.cameraType = camType;
 
         // deprecated setting, but required on Android versions prior to API 11
@@ -210,7 +202,7 @@ public class CvCameraPreview extends SurfaceView implements SurfaceHolder.Callba
     }
 
     /**
-     * Called when mSyncObject lock is held
+     * Called when syncObject lock is held
      */
     private void checkCurrentState() {
         Log.d(LOG_TAG, "call checkCurrentState");
@@ -303,14 +295,9 @@ public class CvCameraPreview extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
-    /**
-     * surfaceDestroyed does nothing, because Camera release is
-     * performed in the parent Activity
-     *
-     * @param holder
-     */
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
+        Log.d(LOG_TAG, "surfaceDestroyed");
         synchronized (syncObject) {
             surfaceExist = false;
             checkCurrentState();
@@ -335,11 +322,20 @@ public class CvCameraPreview extends SurfaceView implements SurfaceHolder.Callba
         int width = MeasureSpec.getSize(widthMeasureSpec);
 
         // do some ultra high precision math...
-        float ratio = ASPECT_RATIO_H / ASPECT_RATIO_W;
-        if (width > height * ratio) {
-            width = (int) (height / ratio + .5);
+        float expectedRatio = height > width ? ASPECT_RATIO_H / ASPECT_RATIO_W : ASPECT_RATIO_W / ASPECT_RATIO_H;
+        float screenRatio = width * 1f / height;
+        if (screenRatio > expectedRatio) {
+            if (scaleType == SCALE_FULL) {
+                height = (int) (width / expectedRatio + .5);
+            } else {
+                width = (int) (height * expectedRatio + .5);
+            }
         } else {
-            height = (int) (width / ratio + .5);
+            if (scaleType == SCALE_FULL) {
+                width = (int) (height * expectedRatio + .5);
+            } else {
+                height = (int) (width / expectedRatio + .5);
+            }
         }
 
         setMeasuredDimension(width, height);
@@ -480,7 +476,6 @@ public class CvCameraPreview extends SurfaceView implements SurfaceHolder.Callba
             List<Size> sizes = parameters.getSupportedPreviewSizes();
             if (sizes != null) {
                 Size bestPreviewSize = getBestSize(sizes, PREVIEW_MAX_WIDTH);
-                Size bestPictureSize = getBestSize(sizes, PICTURE_MAX_WIDTH);
 
                 frameWidth = bestPreviewSize.width;
                 frameHeight = bestPreviewSize.height;
@@ -803,10 +798,11 @@ public class CvCameraPreview extends SurfaceView implements SurfaceHolder.Callba
         }
         cacheBitmap = converterToBitmap.convert(frame);
         if (cacheBitmap != null) {
+            int width, height;
             Canvas canvas = getHolder().lockCanvas();
             if (canvas != null) {
-                int width = canvas.getWidth();
-                int height = cacheBitmap.getHeight() * canvas.getWidth() / cacheBitmap.getWidth();
+                width = canvas.getWidth();
+                height = cacheBitmap.getHeight() * canvas.getWidth() / cacheBitmap.getWidth();
                 canvas.drawColor(0, android.graphics.PorterDuff.Mode.CLEAR);
                 canvas.drawBitmap(cacheBitmap,
                         new Rect(0, 0, cacheBitmap.getWidth(), cacheBitmap.getHeight()),

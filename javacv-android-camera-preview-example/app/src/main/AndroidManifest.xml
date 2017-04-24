@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="org.bytedeco.javacv.android.example.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,10 +28,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="org.bytedeco.javacv.android.example.RecordActivity"
+            android:name=".RecordActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="org.bytedeco.javacv.android.example.OpenCvActivity"
+            android:name=".OpenCvActivity"
             android:screenOrientation="portrait" />
     </application>
 
