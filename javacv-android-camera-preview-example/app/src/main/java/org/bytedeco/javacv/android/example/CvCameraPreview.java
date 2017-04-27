@@ -605,7 +605,7 @@ public class CvCameraPreview extends SurfaceView implements SurfaceHolder.Callba
             } else
                 cameraDevice.setPreviewDisplay(holder);
             cameraDevice.startPreview();
-            filter.start();
+//            filter.start();
         } catch (Exception e) {
             Log.e(LOG_TAG, "startCameraPreview(): error starting camera preview", e);
         }
@@ -619,7 +619,7 @@ public class CvCameraPreview extends SurfaceView implements SurfaceHolder.Callba
         try {
             cameraDevice.stopPreview();
             cameraDevice.setPreviewCallback(null);
-            filter.stop();
+//            filter.stop();
         } catch (Exception e) {
             // ignored: tried to stop a non-existent preview
             Log.i(LOG_TAG, "stopCameraPreview(): tried to stop a non-running preview, this is not an error");
@@ -779,10 +779,12 @@ public class CvCameraPreview extends SurfaceView implements SurfaceHolder.Callba
                     if (cameraFrame[1 - chainIdx] != null) {
                         try {
                             Frame frame;
+                            filter.start();
                             filter.push(cameraFrame[1 - chainIdx]);
                             while ((frame = filter.pull()) != null) {
                                 deliverAndDrawFrame(frame);
                             }
+                            filter.stop();
                         } catch (FrameFilter.Exception e) {
                             e.printStackTrace();
                         }
