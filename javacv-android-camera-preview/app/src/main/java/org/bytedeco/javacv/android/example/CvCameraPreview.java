@@ -1,18 +1,3 @@
-/*
-* Copyright 2007-2011 the original author or authors
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
 package org.bytedeco.javacv.android.example;
 
 import android.app.Activity;
@@ -22,7 +7,9 @@ import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.ImageFormat;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
@@ -38,16 +25,18 @@ import android.view.SurfaceView;
 
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacv.AndroidFrameConverter;
-import org.bytedeco.javacv.FFmpegFrameFilter;
 import org.bytedeco.javacv.Frame;
-import org.bytedeco.javacv.FrameFilter;
 import org.bytedeco.javacv.OpenCVFrameConverter;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.List;
 
-import static org.bytedeco.javacpp.avutil.AV_PIX_FMT_NV21;
+import static org.bytedeco.javacpp.opencv_core.CV_8UC4;
+import static org.bytedeco.javacpp.opencv_core.flip;
+import static org.bytedeco.javacpp.opencv_core.transpose;
+import static org.bytedeco.javacpp.opencv_imgproc.COLOR_YUV2RGBA_NV21;
+import static org.bytedeco.javacpp.opencv_imgproc.cvtColor;
 
 /**
  * This is the graphical object used to display a real-time preview of the Camera.
@@ -111,7 +100,6 @@ public class CvCameraPreview extends SurfaceView implements SurfaceHolder.Callba
      */
     private SurfaceHolder surfaceHolder;
 
-    private FFmpegFrameFilter filter;
     private int chainIdx = 0;
     private boolean stopThread = false;
     private boolean cameraFrameReady = false;
@@ -119,8 +107,8 @@ public class CvCameraPreview extends SurfaceView implements SurfaceHolder.Callba
     private boolean surfaceExist;
     private Thread thread;
     private CvCameraViewListener listener;
-    private AndroidFrameConverter converterToBitmap = new AndroidFrameConverter();
-    private OpenCVFrameConverter.ToMat converterToMat = new OpenCVFrameConverter.ToMat();
+    private AndroidFrameConverter converterToBitmap;
+    private OpenCVFrameConverter.ToMat converterToMat;
     private Bitmap cacheBitmap;
     protected Frame[] cameraFrame;
     private int state = STOPPED;
@@ -131,6 +119,13 @@ public class CvCameraPreview extends SurfaceView implements SurfaceHolder.Callba
     private SurfaceTexture surfaceTexture;
     private int frameWidth, frameHeight;
     private int scaleType = SCALE_FIT;
+    private long lastTimeGrabFrame;
+    private long lastTimeGrabFps;
+    private Paint fpsPaint;
+    private boolean showFps;
+    private long lastFps;
+    private int rotateDegree;
+    private boolean isFrontFaceCamera;
 
     public CvCameraPreview(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -150,7 +145,15 @@ public class CvCameraPreview extends SurfaceView implements SurfaceHolder.Callba
         initializer(camType == CAMERA_BACK ? Camera.CameraInfo.CAMERA_FACING_BACK : Camera.CameraInfo.CAMERA_FACING_FRONT, scaleType);
     }
 
+    public void setEnableFpsMeter(boolean enabled) {
+        showFps = enabled;
+    }
+
     private void initializer(int camType, int scaleType) {
+
+        this.fpsPaint = new Paint();
+        this.fpsPaint.setColor(Color.CYAN);
+        this.fpsPaint.setTextSize(40);
 
         this.surfaceHolder = this.getHolder();
         this.surfaceHolder.addCallback(this);
@@ -170,6 +173,20 @@ public class CvCameraPreview extends SurfaceView implements SurfaceHolder.Callba
 
     public int getCameraId() {
         return cameraId;
+    }
+
+    public void start() {
+        synchronized (syncObject) {
+            surfaceExist = true;
+            checkCurrentState();
+        }
+    }
+
+    public void stop() {
+        synchronized (syncObject) {
+            surfaceExist = false;
+            checkCurrentState();
+        }
     }
 
     /**
@@ -301,13 +318,6 @@ public class CvCameraPreview extends SurfaceView implements SurfaceHolder.Callba
         if (cacheBitmap != null) {
             cacheBitmap.recycle();
         }
-        if (filter != null) {
-            try {
-                filter.release();
-            } catch (FrameFilter.Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     @Override
@@ -377,7 +387,7 @@ public class CvCameraPreview extends SurfaceView implements SurfaceHolder.Callba
 
     private void disconnectCamera() {
         /* 1. We need to stop thread which updating the frames
-         * 2. Stop camera and release it
+         * 2. Stop camera and stop it
          */
         Log.d(LOG_TAG, "Disconnecting from camera");
         try {
@@ -397,7 +407,7 @@ public class CvCameraPreview extends SurfaceView implements SurfaceHolder.Callba
 
         stopCameraPreview();
 
-        /* Now release camera */
+        /* Now stop camera */
         releaseCamera();
 
         cameraFrameReady = false;
@@ -468,7 +478,18 @@ public class CvCameraPreview extends SurfaceView implements SurfaceHolder.Callba
 
             updateCameraDisplayOrientation();
 
-            initFilter(frameWidth, frameHeight);
+            converterToBitmap = new AndroidFrameConverter();
+            converterToMat = new OpenCVFrameConverter.ToMat();
+
+            if (cameraFrame == null) {
+                cameraFrame = new Frame[2];
+                cameraFrame[0] = new Frame(frameWidth, frameHeight + frameHeight / 2, Frame.DEPTH_UBYTE, 1);
+                cameraFrame[1] = new Frame(frameWidth, frameHeight + frameHeight / 2, Frame.DEPTH_UBYTE, 1);
+            }
+
+            Camera.CameraInfo info = new Camera.CameraInfo();
+            Camera.getCameraInfo(cameraId, info);
+            isFrontFaceCamera = info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT;
 
             startCameraPreview(this.surfaceHolder);
         }
@@ -636,9 +657,9 @@ public class CvCameraPreview extends SurfaceView implements SurfaceHolder.Callba
             return;
         }
 
-        int degree = getRotationDegree();
+        rotateDegree = getRotationDegree();
 
-        cameraDevice.setDisplayOrientation(degree); // save settings
+        cameraDevice.setDisplayOrientation(rotateDegree); // save settings
     }
 
     private int getRotationDegree() {
@@ -682,50 +703,6 @@ public class CvCameraPreview extends SurfaceView implements SurfaceHolder.Callba
             result = Math.abs(degrees - 90);
         }
         return result;
-    }
-
-    private void initFilter(int width, int height) {
-        int degree = getRotationDegree();
-        Camera.CameraInfo info = new Camera.CameraInfo();
-        Camera.getCameraInfo(cameraId, info);
-        boolean isFrontFaceCamera = info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT;
-        Log.i(LOG_TAG, "init filter with width = " + width + " and height = " + height + " and degree = "
-                + degree + " and isFrontFaceCamera = " + isFrontFaceCamera);
-        String transposeCode;
-        String formatCode = "format=pix_fmts=rgba";
-        /*
-         0 = 90CounterCLockwise and Vertical Flip (default)
-         1 = 90Clockwise
-         2 = 90CounterClockwise
-         3 = 90Clockwise and Vertical Flip
-         */
-        switch (degree) {
-            case 0:
-                transposeCode = isFrontFaceCamera ? "transpose=3,transpose=2" : "transpose=1,transpose=2";
-                break;
-            case 90:
-                transposeCode = isFrontFaceCamera ? "transpose=3" : "transpose=1";
-                break;
-            case 180:
-                transposeCode = isFrontFaceCamera ? "transpose=0,transpose=2" : "transpose=2,transpose=2";
-                break;
-            case 270:
-                transposeCode = isFrontFaceCamera ? "transpose=0" : "transpose=2";
-                break;
-            default:
-                transposeCode = isFrontFaceCamera ? "transpose=3,transpose=2" : "transpose=1,transpose=2";
-        }
-
-        if (cameraFrame == null) {
-            cameraFrame = new Frame[2];
-            cameraFrame[0] = new Frame(width, height, Frame.DEPTH_UBYTE, 2);
-            cameraFrame[1] = new Frame(width, height, Frame.DEPTH_UBYTE, 2);
-        }
-
-        filter = new FFmpegFrameFilter(transposeCode + "," + formatCode, width, height);
-        filter.setPixelFormat(AV_PIX_FMT_NV21);
-
-        Log.i(LOG_TAG, "filter initialize success");
     }
 
     @Override
@@ -777,17 +754,7 @@ public class CvCameraPreview extends SurfaceView implements SurfaceHolder.Callba
 
                 if (!stopThread && hasFrame) {
                     if (cameraFrame[1 - chainIdx] != null) {
-                        try {
-                            Frame frame;
-                            filter.start();
-                            filter.push(cameraFrame[1 - chainIdx]);
-                            while ((frame = filter.pull()) != null) {
-                                deliverAndDrawFrame(frame);
-                            }
-                            filter.stop();
-                        } catch (FrameFilter.Exception e) {
-                            e.printStackTrace();
-                        }
+                        deliverAndDrawFrame(cameraFrame[1 - chainIdx]);
                     }
                 }
             } while (!stopThread);
@@ -803,21 +770,39 @@ public class CvCameraPreview extends SurfaceView implements SurfaceHolder.Callba
      * @param frame - the current frame to be delivered
      */
     protected void deliverAndDrawFrame(Frame frame) {
-        Mat processedMat = null;
+        Mat yuvMat = converterToMat.convert(frame);
+        Mat rgbaMat = new Mat(frameWidth, frameHeight, CV_8UC4);
+        cvtColor(yuvMat, rgbaMat, COLOR_YUV2RGBA_NV21, 4);
+
+        if (rotateDegree == 90) {
+            transpose(rgbaMat, rgbaMat);
+            flip(rgbaMat, rgbaMat, isFrontFaceCamera ? -1 : 1);
+        } else if (rotateDegree == 180 && isFrontFaceCamera) {
+            flip(rgbaMat, rgbaMat, 0);
+        } else if (rotateDegree == 270) {
+            transpose(rgbaMat, rgbaMat);
+            flip(rgbaMat, rgbaMat, isFrontFaceCamera ? 0 : 1);
+        } else if (isFrontFaceCamera) {
+            flip(rgbaMat, rgbaMat, 1);
+        }
 
         if (listener != null) {
-            Mat mat = converterToMat.convert(frame);
-            processedMat = listener.onCameraFrame(mat);
+            Mat processedMat = listener.onCameraFrame(rgbaMat);
             frame = converterToMat.convert(processedMat);
-            if (mat != null) {
-                mat.release();
-            }
+        } else {
+            frame = converterToMat.convert(rgbaMat);
         }
         cacheBitmap = converterToBitmap.convert(frame);
         if (cacheBitmap != null) {
             int width, height;
             Canvas canvas = getHolder().lockCanvas();
             if (canvas != null) {
+                if (lastTimeGrabFrame > 0 && System.currentTimeMillis() - lastTimeGrabFps > 1000) {
+                    lastTimeGrabFps = System.currentTimeMillis();
+                    lastFps = 1000 / (System.currentTimeMillis() - lastTimeGrabFrame);
+
+                }
+                lastTimeGrabFrame = System.currentTimeMillis();
                 width = canvas.getWidth();
                 height = cacheBitmap.getHeight() * canvas.getWidth() / cacheBitmap.getWidth();
                 canvas.drawColor(0, android.graphics.PorterDuff.Mode.CLEAR);
@@ -827,13 +812,15 @@ public class CvCameraPreview extends SurfaceView implements SurfaceHolder.Callba
                                 (canvas.getHeight() - height) / 2,
                                 width,
                                 (canvas.getHeight() - height) / 2 + height), null);
+                if (showFps) {
+                    canvas.drawText("FPS: " + lastFps, 50, 50, fpsPaint);
+                }
                 getHolder().unlockCanvasAndPost(canvas);
             }
         }
 
-        if (processedMat != null) {
-            processedMat.release();
-        }
+        yuvMat.release();
+        rgbaMat.release();
     }
 
     public interface CvCameraViewListener {
