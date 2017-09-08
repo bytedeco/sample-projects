@@ -1,0 +1,85 @@
+apply plugin: 'com.android.application'
+def ndkPath
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+    defaultConfig {
+        applicationId "idl.baidu.com.javacppgradle"
+        minSdkVersion 22
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    externalNativeBuild {
+        android {
+            externalNativeBuild {
+                ndkPath = getNdkDirectory().toString()
+            }
+        }
+        ndkBuild {
+            path 'src/main/jni/Android.mk'
+        }
+    }
+    sourceSets.main {
+        jniLibs.srcDir 'src/main/libs'
+        jni.srcDirs = [] //disable automatic ndk-build call
+    }
+}
+
+android.applicationVariants.all { variant ->
+    println("")
+    println("OOOOOOO++++++++++++++OOOOOOO++++++++++++++OOOOOOO++++++++++++++OOOOOOO++++++++++++++")
+    println 'variant.name: ' + variant.name
+    def projectDir = project.projectDir.absolutePath
+    def classesDir = variant.javaCompile.destinationDir
+    def jniDir = file("$projectDir/src/main/jni/").absolutePath
+    println(projectDir)
+    println(classesDir)
+    println(jniDir)
+    println("++javacpp file path:" + (configurations.javacpp.asPath))
+//    println("/Users/liliqiang/Desktop/javacpp-bin/javacpp.jar")
+    println(ndkPath)
+    println(configurations.javacpp.asPath)
+    // NOTE: The functionlity of javacpp is create jni cpp file from java code.++++++++++++++++
+    // javacpp workflow:
+    // 1.generate jni cpp file by javacpp-java code file.
+    // 2.nkd build with android.mk
+    // 3.common compile apk file.
+    variant.javaCompile.doLast {
+        println 'javacpp start.'
+        javaexec {
+            main = 'org.bytedeco.javacpp.tools.Builder'
+            //NOTE: jar version must be same with the dependency jar.
+            classpath = files(configurations.javacpp.asPath)
+            args '-cp', "$classesDir",
+                    '-properties', 'android-arm',
+                    '-Dplatform.root=' + ndkPath,
+                    '-Dplatform.compiler=' + ndkPath + '/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-g++',
+                    //NOTE: include path will auto work by javacpp.jar 1.1 version.(see Android.mk)
+//                    "-Dplatform.includepath=" + includePath+"/include:" +includePath+"/libs/armeabi/include",
+                    "-nocompile", "idl.baidu.cpp.*",
+                    "-d", "${jniDir}" // jni file destination folder.
+        }
+        println 'javacpp done'
+    }
+}
+
+configurations {
+    javacpp
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'org.bytedeco:javacpp:1.3.3'
+    javacpp 'org.bytedeco:javacpp:1.3.3'
+}
