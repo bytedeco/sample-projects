@@ -9,7 +9,7 @@ cmake_minimum_required(VERSION 3.4.1)
 # You can define multiple libraries, and CMake builds it for you.
 # Gradle automatically packages shared libraries with your APK.
 FILE(GLOB MyCSources src/main/cpp/*.cpp src/main/cpp/*.h)
-message(>>>${MyCSources})
+message(>:${MyCSources})
 add_library( # Sets the name of the library.
              jniMultiplyDemo
              # Sets the library as a shared library.
