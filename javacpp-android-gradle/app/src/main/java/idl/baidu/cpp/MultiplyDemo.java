@@ -9,7 +9,7 @@ import org.bytedeco.javacpp.annotation.Namespace;
 import org.bytedeco.javacpp.annotation.Platform;
 import org.bytedeco.javacpp.annotation.StdString;
 
-@Platform(include="NativeLibrary.h",link="NativeLibrary")
+@Platform(include="NativeLibrary.h",link="MultiplyDemo")
 public class MultiplyDemo {
 
     static {
