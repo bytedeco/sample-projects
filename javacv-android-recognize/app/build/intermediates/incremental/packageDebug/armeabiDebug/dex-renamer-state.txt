@@ -1,0 +1,4 @@
+#Thu Nov 23 01:16:34 BRST 2017
+base.0=/Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/build/intermediates/transforms/dexMerger/debug/0
+renamed.0=classes.dex
+file.0=/Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/build/intermediates/transforms/dexMerger/debug/0/classes.dex

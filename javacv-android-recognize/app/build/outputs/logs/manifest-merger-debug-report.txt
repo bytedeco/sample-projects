@@ -1,0 +1,174 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:1:1-35:12
+INJECTED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:1:1-35:12
+INJECTED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:1:1-35:12
+INJECTED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:1:1-35:12
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/fff910762b09c7deb4cecffc135d84ee/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-25.3.1.aar/329ae3cc30a529341d6beaa447b16b15/AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-25.3.1.aar/57b693caee07138ca7905663f7f610c4/AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:support-v4:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/33fd6d7860e498226e2877a5218255c2/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-fragment-25.3.1.aar/9fd447596ea5c2352e2254b1cca93220/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-media-compat-25.3.1.aar/bc6bd93fa0ebf49e500939262f39ee84/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-core-utils-25.3.1.aar/69e0be30e3dbf5b59ce802aa892f4114/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-core-ui-25.3.1.aar/5ef385a27f6996e131abdc71ed4ec9db/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-compat:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-compat-25.3.1.aar/1207eeb0ba0af0f0603514cf7d57cf1d/AndroidManifest.xml:17:1-31:12
+INJECTED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:1:1-35:12
+INJECTED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:1:1-35:12
+INJECTED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:1:1-35:12
+	package
+		ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:2:5-60
+		INJECTED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml
+		ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:1:1-35:12
+		INJECTED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml
+		ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:1:1-35:12
+		INJECTED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:1:11-69
+uses-permission#android.permission.CAMERA
+ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:4:5-65
+	android:name
+		ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:4:22-62
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:5:5-81
+	android:name
+		ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:5:22-78
+uses-permission#ANDROID.PERMISSION.READ_EXTERNAL_STORAGE
+ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:6:5-80
+	android:name
+		ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:6:22-77
+uses-permission#android.permission.WAKE_LOCK
+ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:7:5-68
+	android:name
+		ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:7:22-65
+uses-feature#android.hardware.camera
+ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:9:5-60
+	android:name
+		ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:9:19-57
+uses-feature#android.hardware.camera.autofocus
+ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:10:5-70
+	android:name
+		ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:10:19-67
+uses-feature#android.hardware.camera.front
+ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:11:5-66
+	android:name
+		ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:11:19-63
+uses-feature#android.hardware.camera.front.autofocus
+ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:12:5-76
+	android:name
+		ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:12:19-73
+application
+ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:14:5-33:19
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/fff910762b09c7deb4cecffc135d84ee/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/fff910762b09c7deb4cecffc135d84ee/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-25.3.1.aar/329ae3cc30a529341d6beaa447b16b15/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-25.3.1.aar/329ae3cc30a529341d6beaa447b16b15/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-25.3.1.aar/57b693caee07138ca7905663f7f610c4/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-25.3.1.aar/57b693caee07138ca7905663f7f610c4/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-v4:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/33fd6d7860e498226e2877a5218255c2/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-v4:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/33fd6d7860e498226e2877a5218255c2/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-fragment-25.3.1.aar/9fd447596ea5c2352e2254b1cca93220/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-fragment-25.3.1.aar/9fd447596ea5c2352e2254b1cca93220/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-media-compat-25.3.1.aar/bc6bd93fa0ebf49e500939262f39ee84/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-media-compat-25.3.1.aar/bc6bd93fa0ebf49e500939262f39ee84/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-core-utils-25.3.1.aar/69e0be30e3dbf5b59ce802aa892f4114/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-core-utils-25.3.1.aar/69e0be30e3dbf5b59ce802aa892f4114/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-core-ui-25.3.1.aar/5ef385a27f6996e131abdc71ed4ec9db/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-core-ui-25.3.1.aar/5ef385a27f6996e131abdc71ed4ec9db/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-compat:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-compat-25.3.1.aar/1207eeb0ba0af0f0603514cf7d57cf1d/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-compat:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-compat-25.3.1.aar/1207eeb0ba0af0f0603514cf7d57cf1d/AndroidManifest.xml:29:5-20
+	android:supportsRtl
+		ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:20:9-35
+	android:label
+		ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:17:9-41
+	android:roundIcon
+		ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:19:9-54
+	android:largeHeap
+		ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:18:9-33
+	android:icon
+		ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:16:9-43
+	android:allowBackup
+		ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:15:9-35
+	android:theme
+		ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:21:9-40
+activity#org.bytedeco.javacv.android.recognize.example.MainActivity
+ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:23:9-29:20
+	android:name
+		ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:23:19-47
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:24:13-28:29
+action#android.intent.action.MAIN
+ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:25:17-69
+	android:name
+		ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:25:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:27:17-77
+	android:name
+		ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:27:27-74
+activity#org.bytedeco.javacv.android.recognize.example.OpenCvRecognizeActivity
+ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:30:9-32:52
+	android:screenOrientation
+		ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:32:13-49
+	android:name
+		ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml:31:13-52
+uses-sdk
+INJECTED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml
+INJECTED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/fff910762b09c7deb4cecffc135d84ee/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/fff910762b09c7deb4cecffc135d84ee/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-25.3.1.aar/329ae3cc30a529341d6beaa447b16b15/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-25.3.1.aar/329ae3cc30a529341d6beaa447b16b15/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-25.3.1.aar/57b693caee07138ca7905663f7f610c4/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-25.3.1.aar/57b693caee07138ca7905663f7f610c4/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/33fd6d7860e498226e2877a5218255c2/AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-v4:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/33fd6d7860e498226e2877a5218255c2/AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-fragment-25.3.1.aar/9fd447596ea5c2352e2254b1cca93220/AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-fragment-25.3.1.aar/9fd447596ea5c2352e2254b1cca93220/AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-media-compat-25.3.1.aar/bc6bd93fa0ebf49e500939262f39ee84/AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-media-compat-25.3.1.aar/bc6bd93fa0ebf49e500939262f39ee84/AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-core-utils-25.3.1.aar/69e0be30e3dbf5b59ce802aa892f4114/AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-core-utils-25.3.1.aar/69e0be30e3dbf5b59ce802aa892f4114/AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-core-ui-25.3.1.aar/5ef385a27f6996e131abdc71ed4ec9db/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-core-ui-25.3.1.aar/5ef385a27f6996e131abdc71ed4ec9db/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-compat:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-compat-25.3.1.aar/1207eeb0ba0af0f0603514cf7d57cf1d/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-compat:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-compat-25.3.1.aar/1207eeb0ba0af0f0603514cf7d57cf1d/AndroidManifest.xml:21:5-23:58
+INJECTED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml
+INJECTED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml
+	tools:overrideLibrary
+		ADDED from [com.android.support:appcompat-v7:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/fff910762b09c7deb4cecffc135d84ee/AndroidManifest.xml:23:9-75
+	android:targetSdkVersion
+		INJECTED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml
+		ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml
+		ADDED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/diegodesouza/androidprojects/javacv/javacv-android-recognize/app/src/main/AndroidManifest.xml
+meta-data#android.support.VERSION
+ADDED from [com.android.support:appcompat-v7:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/fff910762b09c7deb4cecffc135d84ee/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-25.3.1.aar/329ae3cc30a529341d6beaa447b16b15/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-25.3.1.aar/329ae3cc30a529341d6beaa447b16b15/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-25.3.1.aar/57b693caee07138ca7905663f7f610c4/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-25.3.1.aar/57b693caee07138ca7905663f7f610c4/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-v4:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/33fd6d7860e498226e2877a5218255c2/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-v4:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/33fd6d7860e498226e2877a5218255c2/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-fragment-25.3.1.aar/9fd447596ea5c2352e2254b1cca93220/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-fragment-25.3.1.aar/9fd447596ea5c2352e2254b1cca93220/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-media-compat-25.3.1.aar/bc6bd93fa0ebf49e500939262f39ee84/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-media-compat-25.3.1.aar/bc6bd93fa0ebf49e500939262f39ee84/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-core-utils-25.3.1.aar/69e0be30e3dbf5b59ce802aa892f4114/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-core-utils-25.3.1.aar/69e0be30e3dbf5b59ce802aa892f4114/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-core-ui-25.3.1.aar/5ef385a27f6996e131abdc71ed4ec9db/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-core-ui-25.3.1.aar/5ef385a27f6996e131abdc71ed4ec9db/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-compat:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-compat-25.3.1.aar/1207eeb0ba0af0f0603514cf7d57cf1d/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-compat:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/support-compat-25.3.1.aar/1207eeb0ba0af0f0603514cf7d57cf1d/AndroidManifest.xml:25:5-27:34
+	android:value
+		ADDED from [com.android.support:appcompat-v7:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/fff910762b09c7deb4cecffc135d84ee/AndroidManifest.xml:27:9-31
+	android:name
+		ADDED from [com.android.support:appcompat-v7:25.3.1] /Users/diegodesouza/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/fff910762b09c7deb4cecffc135d84ee/AndroidManifest.xml:26:9-47
