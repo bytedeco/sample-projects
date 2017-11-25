@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <org.bytedeco.javacv.android.recognize.example.CvCameraPreview
+        android:id="@+id/camera_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        app:camera_type="front"
+        app:scale_type="full" />
+
+    <Button
+        android:id="@+id/btTrain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Train"
+        android:layout_gravity="bottom|left"
+        />
+
+    <Button
+        android:id="@+id/btPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Take Photo"
+        android:layout_gravity="bottom|center_horizontal"/>
+
+    <Button
+        android:id="@+id/btReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reset"
+        android:layout_gravity="bottom|right"/>
+
+</FrameLayout>
