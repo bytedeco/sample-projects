@@ -1,7 +1,6 @@
 /* goes with the lincense of org.bytedeco.javacpp
  * (c) kaba
  */
-package me.kaba.javacpp.cuda.demo;
 
 import org.bytedeco.javacpp.BytePointer;
 import org.bytedeco.javacpp.IntPointer;

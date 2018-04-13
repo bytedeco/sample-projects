@@ -6,6 +6,8 @@ I used NetBeans; follow theses steps if you want to use Netbeans:
 - add the dependency `org.bytedeco.javacpp-presets`, `cuda-platform`, `9.1-7.1-1.4.1` (or newer version); 6 additional dependencies will be included automagically
 - add the sample, build and run
 
+As an alternative you could use the included pom.xml to build and run with 'mvn compile exec:java'.
+
 The sample is a combination of the following sources:
 - the CUDA example [`0_Simple/vectorAddDrv/`](http://docs.nvidia.com/cuda/cuda-samples/index.html#vector-addition-driver-api), which hints to chapter 3 of the programming guide
 - https://developer.download.nvidia.com/books/cuda-by-example/cuda-by-example-sample.pdf (section 4.2.1)
