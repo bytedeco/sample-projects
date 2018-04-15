@@ -1,0 +1,16 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.bytedeco.javacpp-presets.cuda.samples</groupId>
+    <artifactId>vectoradddrv</artifactId>
+    <version>1.0.0</version>
+    <properties>
+        <exec.mainClass>VectorAddDrv</exec.mainClass>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.bytedeco.javacpp-presets</groupId>
+            <artifactId>cuda-platform</artifactId>
+            <version>9.1-7.1-1.4.1</version>
+        </dependency>
+    </dependencies>
+</project>
