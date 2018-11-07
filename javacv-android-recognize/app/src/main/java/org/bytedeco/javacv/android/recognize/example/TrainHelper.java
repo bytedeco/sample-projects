@@ -14,21 +14,19 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.IntBuffer;
+
 import static org.bytedeco.javacpp.opencv_core.CV_32SC1;
 
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.MatVector;
 import org.bytedeco.javacpp.opencv_core.Size;
+import org.bytedeco.javacpp.opencv_face;
 import org.bytedeco.javacpp.opencv_face.FaceRecognizer;
 import org.bytedeco.javacpp.opencv_objdetect;
 
 import static org.bytedeco.javacpp.opencv_imgcodecs.imwrite;
 import static org.bytedeco.javacpp.opencv_imgproc.rectangle;
-
-import static org.bytedeco.javacpp.opencv_face.createEigenFaceRecognizer;
-import static org.bytedeco.javacpp.opencv_face.createFisherFaceRecognizer;
-import static org.bytedeco.javacpp.opencv_face.createLBPHFaceRecognizer;
 import static org.bytedeco.javacpp.opencv_imgcodecs.CV_LOAD_IMAGE_GRAYSCALE;
 import static org.bytedeco.javacpp.opencv_imgcodecs.imread;
 import static org.bytedeco.javacpp.opencv_imgproc.CV_BGR2GRAY;
@@ -36,7 +34,6 @@ import static org.bytedeco.javacpp.opencv_imgproc.cvtColor;
 import static org.bytedeco.javacpp.opencv_imgproc.resize;
 
 /**
- *
  * @author djalmaafilho
  */
 public class TrainHelper {
@@ -55,17 +52,17 @@ public class TrainHelper {
 
     public static void reset(Context context) throws Exception {
         File photosFolder = new File(context.getFilesDir(), TRAIN_FOLDER);
-        if(photosFolder.exists()) {
+        if (photosFolder.exists()) {
 
             FilenameFilter imageFilter = new FilenameFilter() {
                 @Override
                 public boolean accept(File dir, String name) {
-                    return  name.endsWith(".jpg") || name.endsWith(".gif") || name.endsWith(".png")  ||name.endsWith(".yml");
+                    return name.endsWith(".jpg") || name.endsWith(".gif") || name.endsWith(".png") || name.endsWith(".yml");
                 }
             };
 
             File[] files = photosFolder.listFiles(imageFilter);
-            for(File file : files) {
+            for (File file : files) {
                 file.delete();
             }
         }
@@ -75,30 +72,30 @@ public class TrainHelper {
     public static boolean isTrained(Context context) {
         try {
             File photosFolder = new File(context.getFilesDir(), TRAIN_FOLDER);
-            if(photosFolder.exists()) {
+            if (photosFolder.exists()) {
 
                 FilenameFilter imageFilter = new FilenameFilter() {
                     @Override
                     public boolean accept(File dir, String name) {
-                        return  name.endsWith(".jpg") || name.endsWith(".gif") || name.endsWith(".png");
+                        return name.endsWith(".jpg") || name.endsWith(".gif") || name.endsWith(".png");
                     }
                 };
 
                 FilenameFilter trainFilter = new FilenameFilter() {
                     @Override
                     public boolean accept(File dir, String name) {
-                        return  name.endsWith(".yml");
+                        return name.endsWith(".yml");
                     }
                 };
 
                 File[] photos = photosFolder.listFiles(imageFilter);
                 File[] train = photosFolder.listFiles(trainFilter);
-                return photos!= null && train!= null && photos.length == PHOTOS_TRAIN_QTY && train.length > 0;
+                return photos != null && train != null && photos.length == PHOTOS_TRAIN_QTY && train.length > 0;
             } else {
                 return false;
             }
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             Log.d(TAG, e.getLocalizedMessage(), e);
         }
         return false;
@@ -106,11 +103,11 @@ public class TrainHelper {
 
     public static int qtdPhotos(Context context) {
         File photosFolder = new File(context.getFilesDir(), TRAIN_FOLDER);
-        if(photosFolder.exists()) {
+        if (photosFolder.exists()) {
             FilenameFilter imageFilter = new FilenameFilter() {
                 @Override
                 public boolean accept(File dir, String name) {
-                    return  name.endsWith(".jpg") || name.endsWith(".gif") || name.endsWith(".png");
+                    return name.endsWith(".jpg") || name.endsWith(".gif") || name.endsWith(".png");
                 }
             };
 
@@ -120,36 +117,39 @@ public class TrainHelper {
         return 0;
     }
 
-    public static boolean train(Context context) throws Exception{
+    public static boolean train(Context context) throws Exception {
 
         File photosFolder = new File(context.getFilesDir(), TRAIN_FOLDER);
-        if(!photosFolder.exists()) return false;
+        if (!photosFolder.exists()) return false;
 
         FilenameFilter imageFilter = new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                return  name.endsWith(".jpg") || name.endsWith(".gif") || name.endsWith(".png");
+                return name.endsWith(".jpg") || name.endsWith(".gif") || name.endsWith(".png");
             }
         };
-        
+
         File[] files = photosFolder.listFiles(imageFilter);
         MatVector photos = new MatVector(files.length);
         Mat labels = new Mat(files.length, 1, CV_32SC1);
         IntBuffer rotulosBuffer = labels.createBuffer();
         int counter = 0;
-        for (File image: files) {
+        for (File image : files) {
             Mat photo = imread(image.getAbsolutePath(), CV_LOAD_IMAGE_GRAYSCALE);
             int classe = Integer.parseInt(image.getName().split("\\.")[1]);
-            resize(photo, photo, new Size(IMG_SIZE,IMG_SIZE));
+            resize(photo, photo, new Size(IMG_SIZE, IMG_SIZE));
             photos.put(counter, photo);
             rotulosBuffer.put(counter, classe);
             counter++;
         }
-        
-        FaceRecognizer eigenfaces = createEigenFaceRecognizer();
-        FaceRecognizer fisherfaces = createFisherFaceRecognizer();
-        FaceRecognizer lbph = createLBPHFaceRecognizer(2,9,9,9,1);
 
+//        FaceRecognizer eigenfaces = createEigenFaceRecognizer();
+//        FaceRecognizer fisherfaces = createFisherFaceRecognizer();
+//        FaceRecognizer lbph = createLBPHFaceRecognizer(2,9,9,9,1);
+
+        FaceRecognizer eigenfaces = opencv_face.EigenFaceRecognizer.create();
+        FaceRecognizer fisherfaces = opencv_face.FisherFaceRecognizer.create();
+        FaceRecognizer lbph = opencv_face.LBPHFaceRecognizer.create();
         eigenfaces.train(photos, labels);
         File f = new File(photosFolder, EIGEN_FACES_CLASSIFIER);
         f.createNewFile();
@@ -168,11 +168,11 @@ public class TrainHelper {
         return true;
     }
 
-    public static void takePhoto(Context context, int personId, int photoNumber, Mat rgbaMat, opencv_objdetect.CascadeClassifier faceDetector) throws Exception{
+    public static void takePhoto(Context context, int personId, int photoNumber, Mat rgbaMat, opencv_objdetect.CascadeClassifier faceDetector) throws Exception {
         File folder = new File(context.getFilesDir(), TRAIN_FOLDER);
-        if(folder.exists() && !folder.isDirectory())
+        if (folder.exists() && !folder.isDirectory())
             folder.delete();
-        if(!folder.exists())
+        if (!folder.exists())
             folder.mkdirs();
 
         int qtyPhotos = PHOTOS_TRAIN_QTY;
@@ -180,13 +180,13 @@ public class TrainHelper {
 
         cvtColor(rgbaMat, greyMat, CV_BGR2GRAY);
         opencv_core.RectVector detectedFaces = new opencv_core.RectVector();
-        faceDetector.detectMultiScale(greyMat, detectedFaces, 1.1, 1, 0, new Size(150,150), new Size(500,500));
+        faceDetector.detectMultiScale(greyMat, detectedFaces, 1.1, 1, 0, new Size(150, 150), new Size(500, 500));
         for (int i = 0; i < detectedFaces.size(); i++) {
 
             opencv_core.Rect rectFace = detectedFaces.get(0);
-            rectangle(rgbaMat, rectFace, new opencv_core.Scalar(0,0,255, 0));
+            rectangle(rgbaMat, rectFace, new opencv_core.Scalar(0, 0, 255, 0));
             Mat capturedFace = new Mat(greyMat, rectFace);
-            resize(capturedFace, capturedFace, new Size(IMG_SIZE,IMG_SIZE));
+            resize(capturedFace, capturedFace, new Size(IMG_SIZE, IMG_SIZE));
 
             if (photoNumber <= qtyPhotos) {
                 File f = new File(folder, String.format(FILE_NAME_PATTERN, personId, photoNumber));

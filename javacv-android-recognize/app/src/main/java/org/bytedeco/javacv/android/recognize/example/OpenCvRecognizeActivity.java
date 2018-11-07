@@ -1,5 +1,6 @@
 package org.bytedeco.javacv.android.recognize.example;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +24,6 @@ import java.io.File;
 import static org.bytedeco.javacpp.opencv_core.FONT_HERSHEY_PLAIN;
 import static org.bytedeco.javacpp.opencv_core.LINE_8;
 import static org.bytedeco.javacpp.opencv_core.Mat;
-import static org.bytedeco.javacpp.opencv_face.createEigenFaceRecognizer;
 import static org.bytedeco.javacpp.opencv_imgproc.CV_BGR2GRAY;
 import static org.bytedeco.javacpp.opencv_imgproc.cvtColor;
 import static org.bytedeco.javacpp.opencv_imgproc.putText;
@@ -43,7 +43,7 @@ public class OpenCvRecognizeActivity extends Activity implements CvCameraPreview
     private int absoluteFaceSize = 0;
     private CvCameraPreview cameraView;
     boolean takePhoto;
-    opencv_face.FaceRecognizer faceRecognizer = createEigenFaceRecognizer();
+    opencv_face.FaceRecognizer faceRecognizer = opencv_face.EigenFaceRecognizer.create();
     boolean trained;
 
     private boolean hasPermissions(Context context, String... permissions) {
@@ -57,6 +57,7 @@ public class OpenCvRecognizeActivity extends Activity implements CvCameraPreview
         return true;
     }
 
+    @SuppressLint("StaticFieldLeak")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +80,8 @@ public class OpenCvRecognizeActivity extends Activity implements CvCameraPreview
                     if(TrainHelper.isTrained(getBaseContext())) {
                         File folder = new File(getFilesDir(), TrainHelper.TRAIN_FOLDER);
                         File f = new File(folder, TrainHelper.EIGEN_FACES_CLASSIFIER);
-                        faceRecognizer.load(f.getAbsolutePath());
+//                        faceRecognizer.load(f.getAbsolutePath());
+                        faceRecognizer.read(f.getAbsolutePath());
                         trained = true;
                     }
                 }catch (Exception e) {
