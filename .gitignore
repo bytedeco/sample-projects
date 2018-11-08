@@ -1,14 +1,13 @@
-*.iml
-.gradle
-/local.properties
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
+**/target/**
+
+# Mac
 .DS_Store
-/build
-/captures
-.externalNativeBuild
+
+# Eclipse
+.classpath
+.project
+.settings
+
+# IntelliJ
+*.iml
 .idea
-javacpp-android-gradle/.idea
-javacv-android-recognize/.idea
-javacv-android-recognize/app/build/
