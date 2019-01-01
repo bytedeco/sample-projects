@@ -2,21 +2,44 @@
 <!--
   ~ Copyright (C) 2017 Baidu, Inc. All Rights Reserved.
   -->
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="idl.baidu.com.javacppgradle.idl.baidu.cpp.MainActivity">
+    android:layout_height="match_parent">
 
-    <TextView
+    <EditText
+        android:id="@+id/first_param"
+        android:inputType="number"
+        android:hint="First param"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <EditText
+        android:id="@+id/second_param"
+        android:inputType="number"
+        android:hint="Second param"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/first_param"
+        />
+    <Button
+        android:id="@+id/multiply"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="Multiply"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
+    <TextView
+        android:id="@+id/result"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/multiply"
+        />
 </android.support.constraint.ConstraintLayout>
