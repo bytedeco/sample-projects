@@ -2,10 +2,22 @@
 
 buildscript {
     repositories {
-        jcenter()
+        maven {
+            url 'https://maven.google.com'
+        }
+        google()
+        maven {
+            url 'https://dl.google.com/dl/android/maven2'
+        }
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+        google()
+        mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.android.tools.build:gradle:3.1.4'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -14,10 +26,37 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
-    }
-}
+        mavenLocal()
+        google()
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+        maven {
+            url 'https://maven.google.com'
+        }
+        jcenter()
+        configurations.all {
+            resolutionStrategy {
+                // fix dependency problem on react-native-maps 0.20.1
+                //force "com.android.support:support-v4:27.1.0"
+            }
+        }
+    }
+
+    buildscript {
+        repositories {
+            mavenLocal()
+            google()
+
+            maven {
+                url 'https://maven.google.com'
+            }
+            jcenter()
+            configurations.all {
+                resolutionStrategy {
+                    // fix dependency problem on react-native-maps 0.20.1
+                    //force "com.android.support:support-v4:27.1.0"
+                }
+            }
+        }
+    }
+
 }
