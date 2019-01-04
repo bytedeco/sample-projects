@@ -7,6 +7,11 @@
 # or
 #
 #   find_package(ndk-stl REQUIRED PATHS ".")
+#
+# The source is from the google's oboe repository:
+#
+# https://github.com/google/oboe/blob/master/samples/hello-oboe/src/main/cpp/ndk-stl-config.cmake
+#
 
 if(NOT ${ANDROID_STL} MATCHES "_shared")
     return()
