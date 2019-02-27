@@ -37,13 +37,7 @@
     <dependencies>
         <dependency>
             <groupId>org.bytedeco</groupId>
-            <artifactId>opencv</artifactId>
-            <version>4.0.1-1.5-SNAPSHOT</version>
-            <classifier>linux-x86_64</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.bytedeco</groupId>
-            <artifactId>opencv</artifactId>
+            <artifactId>opencv-platform</artifactId>
             <version>4.0.1-1.5-SNAPSHOT</version>
         </dependency>
     </dependencies>
