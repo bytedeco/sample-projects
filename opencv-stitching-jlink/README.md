@@ -10,7 +10,7 @@ $ ./target/maven-jlink/bin/stitch panorama_image1.jpg panorama_image2.jpg --outp
 
 First time through, this is going to go off to the Maven Central Repository and download artifacts, including the native libraries for Linux, Mac OS X, or Windows (according to your current platform). 
 
-After running the above, take a look at the resulting file `panorama_stitched.jpg`. The two pictures to stitch are taken from [Ramsri Goutham's blog entry on stitching panoramas with OpenCV](http://ramsrigoutham.com/2012/11/22/panorama-image-stitching-in-opencv).
+After running the above, take a look at the resulting file `panorama_stitched.jpg`. The two pictures to stitch are taken from [Ramsri Goutham's blog entry on stitching panoramas with OpenCV](https://ramsrigoutham.wordpress.com/2012/11/22/panorama-image-stitching-in-opencv/).
 
 The way that Java interoperates with OpenCV is fairly faithful to the original API, including capitalization. The classes and methods in the resulting Java binding have the same case as the C++ API. Indeed many are static methods.
 
