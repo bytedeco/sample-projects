@@ -12,32 +12,27 @@
         <dependency>
             <groupId>org.bytedeco</groupId>
             <artifactId>opencv-platform</artifactId>
-            <version>4.3.0-1.5.3</version>
+            <version>4.3.0-1.5.4-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
+
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                <execution>
-                    <id>regex-property</id>
-                    <goals>
-                        <goal>regex-property</goal>
-                    </goals>
-                    <configuration>
-                        <name>platform.module</name>
-                        <value>${javacpp.platform}</value>
-                        <regex>-</regex>
-                        <replacement>.</replacement>
-                        <failIfNoMatch>false</failIfNoMatch>
-                    </configuration>
-                </execution>
-                </executions>
-            </plugin>
+	    <plugin>
+	        <groupId>org.bytedeco</groupId>
+		<artifactId>javacpp</artifactId>
+		<version>1.5.3</version>
+		<executions>
+		    <execution>
+		        <id>javacpp-validate</id>
+			<phase>validate</phase>
+			<goals>
+			  <goal>build</goal>
+			</goals>
+		    </execution>
+		</executions>
+	    </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>templating-maven-plugin</artifactId>

@@ -8,7 +8,7 @@ module org.bytedeco.samples.stitching {
 
     /* Option 2: bring the native libraries corresponding the the
      * configured javacpp.platform */
-    requires org.bytedeco.opencv.${platform.module};
+    requires org.bytedeco.opencv.${javacpp.platform.module};
 
     /* Option 3: bring all native libraries of all platforms.
      * The invocation of the build-helper-maven-plugin must be removed from the pom.  */

@@ -4,7 +4,7 @@ Sample project for using OpenCV from a generated Java binding made with [Bytedec
 On the command line, run:
 
 ```bash
-$ mvn clean package -Djavacpp.platform=linux-x86_64 
+$ mvn clean package -Djavacpp.platform.custom -Djavacpp.platform.host
 $ ./target/image/bin/stitch panorama_image1.jpg panorama_image2.jpg --output panorama_stitched.jpg
 ```
 
