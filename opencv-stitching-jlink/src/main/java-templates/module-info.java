@@ -2,7 +2,7 @@ module org.bytedeco.samples.stitching {
 
     /* Option 1: bring only the java artifacts into the module graph.
      * This option assumes the needed native libraries are installed
-     * in the the jlink archive with some other way.
+     * in the the jlink archive using some other way.
      */
     //requires org.bytedeco.opencv;
 
@@ -10,7 +10,6 @@ module org.bytedeco.samples.stitching {
      * configured javacpp.platform */
     requires org.bytedeco.opencv.${javacpp.platform.module};
 
-    /* Option 3: bring all native libraries of all platforms.
-     * The invocation of the build-helper-maven-plugin must be removed from the pom.  */
+    /* Option 3: bring all native libraries of all platforms. */
     //requires org.bytedeco.opencv.platform;
 }

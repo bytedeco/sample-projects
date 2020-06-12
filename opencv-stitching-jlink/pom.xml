@@ -19,6 +19,8 @@
 
     <build>
         <plugins>
+	    <!-- This plugin defines the javacpp.platform.module
+	         property used in the module-info template. -->
 	    <plugin>
 	        <groupId>org.bytedeco</groupId>
 		<artifactId>javacpp</artifactId>
