@@ -1,4 +1,4 @@
-module org.bytedeco.samples.stitching {
+module ${outputModule} {
 
     /* Option 1: bring only the java artifacts into the module graph.
      * This option assumes the needed native libraries are installed

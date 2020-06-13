@@ -2,8 +2,9 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.bytedeco.javacpp-presets.opencv</groupId>
     <artifactId>opencv-stitching-jlink</artifactId>
-    <version>1.6</version>
+    <version>1.5.4-SNAPSHOT</version>
     <properties>
+        <outputModule>org.bytedeco.samples.stitching</outputModule>
         <exec.mainClass>org.bytedeco.samples.Stitching</exec.mainClass>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -16,25 +17,38 @@
         </dependency>
     </dependencies>
 
+    <repositories>
+        <repository>
+            <id>sonatype-nexus-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>sonatype-nexus-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <build>
+        <outputDirectory>${project.build.directory}/classes/${outputModule}</outputDirectory>
         <plugins>
-	    <!-- This plugin defines the javacpp.platform.module
-	         property used in the module-info template. -->
-	    <plugin>
-	        <groupId>org.bytedeco</groupId>
-		<artifactId>javacpp</artifactId>
-		<version>1.5.3</version>
-		<executions>
-		    <execution>
-		        <id>javacpp-validate</id>
-			<phase>validate</phase>
-			<goals>
-			  <goal>build</goal>
-			</goals>
-		    </execution>
-		</executions>
-	    </plugin>
+            <!-- This plugin defines the javacpp.platform.module
+                 property used in the module-info template. -->
+            <plugin>
+                <groupId>org.bytedeco</groupId>
+                <artifactId>javacpp</artifactId>
+                <version>1.5.4-SNAPSHOT</version>
+                <executions>
+                    <execution>
+                        <id>javacpp-validate</id>
+                        <phase>validate</phase>
+                        <goals>
+                          <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>templating-maven-plugin</artifactId>
@@ -61,17 +75,18 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.4</version>
                 <executions>
-                <execution>
-                <id>jlink</id>
-                <phase>package</phase>
-                <goals>
-                    <goal>jlink</goal>
-                </goals>
-                <configuration>
-                    <mainClass>org.bytedeco.samples.stitching/${exec.mainClass}</mainClass>
-                    <launcher>stitch</launcher>
-                </configuration>
-                </execution>
+                    <execution>
+                    <id>jlink</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>jlink</goal>
+                    </goals>
+                    <configuration>
+                        <jmodsPath>${java.home}/jmods</jmodsPath>
+                        <mainClass>${outputModule}/${exec.mainClass}</mainClass>
+                        <launcher>stitch</launcher>
+                    </configuration>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>
