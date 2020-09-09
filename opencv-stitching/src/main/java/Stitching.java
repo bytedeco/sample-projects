@@ -40,11 +40,12 @@
 //
 //M*/
 
-import static org.bytedeco.javacpp.opencv_core.Mat;
-import static org.bytedeco.javacpp.opencv_core.MatVector;
-import static org.bytedeco.javacpp.opencv_imgcodecs.imread;
-import static org.bytedeco.javacpp.opencv_imgcodecs.imwrite;
-import static org.bytedeco.javacpp.opencv_stitching.Stitcher;
+import org.bytedeco.opencv.opencv_core.Mat;
+import org.bytedeco.opencv.opencv_core.MatVector;
+import org.bytedeco.opencv.opencv_stitching.Stitcher;
+import static org.bytedeco.opencv.global.opencv_imgcodecs.imread;
+import static org.bytedeco.opencv.global.opencv_imgcodecs.imwrite;
+import static org.bytedeco.opencv.global.opencv_stitching.createStitcher;
 
 public class Stitching {
     static boolean try_use_gpu = false;
@@ -58,7 +59,7 @@ public class Stitching {
         }
 
         Mat pano = new Mat();
-        Stitcher stitcher = Stitcher.createDefault(try_use_gpu);
+        Stitcher stitcher = createStitcher(try_use_gpu);
         int status = stitcher.stitch(imgs, pano);
 
         if (status != Stitcher.OK) {

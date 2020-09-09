@@ -3,7 +3,7 @@ Sample project for using OpenCV from a generated Java binding made with [Bytedec
 On the command line, run:
 
 ```bash
-$ mvn clean install exec:java -Dexec.mainClass=Stitching \
+$ mvn clean compile exec:java -Dexec.mainClass=Stitching \
     -Dexec.args="panorama_image1.jpg panorama_image2.jpg \
     --output panorama_stitched.jpg --try_use_gpu yes"
 ```

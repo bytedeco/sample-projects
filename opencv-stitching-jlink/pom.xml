@@ -1,8 +1,8 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.bytedeco.javacpp-presets.opencv</groupId>
+    <groupId>org.bytedeco</groupId>
     <artifactId>opencv-stitching-jlink</artifactId>
-    <version>1.5.4-SNAPSHOT</version>
+    <version>1.5.4</version>
     <properties>
         <outputModule>org.bytedeco.samples.stitching</outputModule>
         <exec.mainClass>org.bytedeco.samples.Stitching</exec.mainClass>
@@ -13,7 +13,7 @@
         <dependency>
             <groupId>org.bytedeco</groupId>
             <artifactId>opencv-platform</artifactId>
-            <version>4.3.0-1.5.4-SNAPSHOT</version>
+            <version>4.4.0-1.5.4</version>
         </dependency>
     </dependencies>
 
@@ -38,7 +38,7 @@
             <plugin>
                 <groupId>org.bytedeco</groupId>
                 <artifactId>javacpp</artifactId>
-                <version>1.5.4-SNAPSHOT</version>
+                <version>1.5.4</version>
                 <executions>
                     <execution>
                         <id>javacpp-validate</id>

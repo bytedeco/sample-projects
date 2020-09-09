@@ -1,16 +1,16 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.bytedeco.javacpp-presets.opencv</groupId>
+  <groupId>org.bytedeco</groupId>
   <artifactId>opencv-stitching</artifactId>
-  <version>1.4</version>
+  <version>1.5.4</version>
   <properties>
     <exec.mainClass>Stitching</exec.mainClass>
   </properties>
   <dependencies>
     <dependency>
-      <groupId>org.bytedeco.javacpp-presets</groupId>
+      <groupId>org.bytedeco</groupId>
       <artifactId>opencv-platform</artifactId>
-      <version>3.4.0-1.4</version>
+      <version>4.4.0-1.5.4</version>
     </dependency>
   </dependencies>
 </project>
