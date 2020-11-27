@@ -1,0 +1,90 @@
+plugins {
+    id 'com.android.application'
+    id 'org.bytedeco.gradle-javacpp-build' version '1.5.4'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        applicationId "com.example.myapplication"
+        minSdkVersion 16
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
+            version "3.10.2"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+android.applicationVariants.all { variant ->
+    def variantName = variant.name.capitalize() // either "Debug" or "Release"
+    def javaCompile = project.tasks.getByName("compile${variantName}JavaWithJavac")
+    def generateJson = project.tasks.getByName("generateJsonModel$variantName")
+
+    // Compiles NativeLibraryConfig.java
+    task "javacppCompileJava$variantName"(type: JavaCompile) {
+        include 'com/example/myapplication/NativeLibraryConfig.java'
+        source = javaCompile.source
+        classpath = javaCompile.classpath
+        destinationDir = javaCompile.destinationDir
+    }
+
+    // Parses NativeLibrary.h and outputs NativeLibrary.java
+    task "javacppBuildParser$variantName"(type: org.bytedeco.gradle.javacpp.BuildTask) {
+        dependsOn "javacppCompileJava$variantName"
+        classPath = [javaCompile.destinationDir]
+        includePath =  ["$projectDir/src/main/cpp/"]
+        classOrPackageNames = ['com.example.myapplication.NativeLibraryConfig']
+        outputDirectory = file("$projectDir/src/main/java/")
+    }
+
+    // Compiles NativeLibrary.java and everything else
+    javaCompile.dependsOn "javacppBuildParser$variantName"
+
+    // Generates jnijavacpp.cpp and jniNativeLibrary.cpp
+    task "javacppBuildCompiler$variantName"(type: org.bytedeco.gradle.javacpp.BuildTask) {
+        dependsOn javaCompile
+        classPath = [javaCompile.destinationDir]
+        classOrPackageNames = ['com.example.myapplication.NativeLibrary']
+        compile = false
+        deleteJniFiles = false
+        outputDirectory = file("$projectDir/src/main/cpp/")
+    }
+
+    // Picks up the C++ files listed in CMakeLists.txt
+    generateJson.dependsOn "javacppBuildCompiler$variantName"
+}
+
+dependencies {
+    implementation 'org.bytedeco:javacpp:1.5.4'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
