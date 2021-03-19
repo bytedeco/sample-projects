@@ -70,7 +70,8 @@ public class Stitching {
         }
 
         imwrite(result_name, pano);
-        System.exit(0);
+
+        System.out.println("Images stitched together to make " + result_name);
     }
 
     static void printUsage() {
