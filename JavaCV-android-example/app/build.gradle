@@ -1,23 +1,26 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 29
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "org.bytedeco.javacv_android_example"
-        minSdkVersion 16
-        targetSdkVersion 23
+        minSdkVersion 21
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+    }
+    dexOptions {
+        javaMaxHeapSize "2G"
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.0.0'
     compile group: 'org.bytedeco', name: 'javacv', version: '1.3.1'
     compile group: 'org.bytedeco.javacpp-presets', name: 'opencv-platform', version: '3.1.0-1.3'
     compile group: 'org.bytedeco.javacpp-presets', name: 'ffmpeg-platform', version: '3.2.1-1.3'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.3.0'
 
 }
