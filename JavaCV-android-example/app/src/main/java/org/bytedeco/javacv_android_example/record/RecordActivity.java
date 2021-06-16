@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import org.bytedeco.javacv.FFmpegFrameRecorder;
+import org.bytedeco.javacv.FFmpegLogCallback;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv_android_example.R;
 
@@ -59,7 +60,7 @@ public class RecordActivity extends Activity implements OnClickListener {
     ShortBuffer[] samples;
     int imagesIndex, samplesIndex;
     private PowerManager.WakeLock mWakeLock;
-    private File ffmpeg_link = new File(Environment.getExternalStorageDirectory(), "stream.mp4");
+    private File ffmpeg_link;
     private FFmpegFrameRecorder recorder;
     private boolean isPreviewOn = false;
     private int sampleAudioRateInHz = 44100;
@@ -80,6 +81,7 @@ public class RecordActivity extends Activity implements OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FFmpegLogCallback.set();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         setContentView(R.layout.activity_record);
@@ -196,7 +198,7 @@ public class RecordActivity extends Activity implements OnClickListener {
     // initialize ffmpeg_recorder
     //---------------------------------------
     private void initRecorder() {
-
+        ffmpeg_link = new File(getBaseContext().getExternalFilesDir(null), "stream.mp4");
         Log.w(LOG_TAG, "init recorder");
 
         if(RECORD_LENGTH > 0) {
@@ -224,6 +226,7 @@ public class RecordActivity extends Activity implements OnClickListener {
         audioRecordRunnable = new AudioRecordRunnable();
         audioThread = new Thread(audioRecordRunnable);
         runAudioThread = true;
+        Log.i(LOG_TAG, "recorder initialize success");
     }
 
     public void startRecording() {
