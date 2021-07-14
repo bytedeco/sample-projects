@@ -16,10 +16,6 @@ android {
     }
     packagingOptions {
         exclude 'META-INF/native-image/**'
-        exclude 'lib/arm64-v8a/**'
-        exclude 'lib/armeabi-v7a/**'
-        exclude 'lib/x86/**'
-        exclude 'lib/x86_64/**'
     }
 }
 
@@ -27,6 +23,11 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation group: 'org.bytedeco', name: 'javacv', version: '1.5.5'
+
+    implementation group: 'org.bytedeco', name: 'openblas', version: '0.3.13-1.5.5', classifier: 'android-arm'
+    implementation group: 'org.bytedeco', name: 'openblas', version: '0.3.13-1.5.5', classifier: 'android-arm64'
+    implementation group: 'org.bytedeco', name: 'openblas', version: '0.3.13-1.5.5', classifier: 'android-x86_64'
+    implementation group: 'org.bytedeco', name: 'openblas', version: '0.3.13-1.5.5', classifier: 'android-x86'
 
     implementation group: 'org.bytedeco', name: 'opencv', version: '4.5.1-1.5.5', classifier: 'android-arm'
     implementation group: 'org.bytedeco', name: 'opencv', version: '4.5.1-1.5.5', classifier: 'android-arm64'

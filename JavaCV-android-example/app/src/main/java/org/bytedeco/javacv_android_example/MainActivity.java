@@ -22,13 +22,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViewById(R.id.btnRecord).setOnClickListener(v -> startActivity(new Intent(MainActivity.this, RecordActivity.class)));
-
+        findViewById(R.id.btnRecord).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, RecordActivity.class));
+            }
+        });
         if (!allPermissionsGranted()) {
             ActivityCompat.requestPermissions(
                     this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
         }
-
     }
     private boolean allPermissionsGranted() {
         for(String permission: REQUIRED_PERMISSIONS) {
