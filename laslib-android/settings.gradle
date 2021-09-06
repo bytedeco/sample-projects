@@ -1,0 +1,2 @@
+include ':LAStools'
+rootProject.name = "LAStools"

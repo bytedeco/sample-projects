@@ -1,0 +1,98 @@
+plugins {
+    id 'com.android.library'
+    id 'org.bytedeco.gradle-javacpp-build' version '1.5.6'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+    ndkVersion "21.4.7075529"
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+
+        externalNativeBuild {
+            cmake {
+                arguments '-DANDROID_STL=c++_static'
+            }
+            ndkBuild {
+                // multicore build
+                arguments "-j" + Runtime.runtime.availableProcessors()
+            }
+        }
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path file('src/main/cpp/CMakeLists.txt')
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    libraryVariants.all { variant ->
+        def variantName = variant.name.capitalize() // either "Debug" or "Release"
+        def javaCompile = project.tasks.getByName("compile${variantName}JavaWithJavac")
+        def generateJson = project.tasks.getByName("generateJsonModel$variantName")
+
+        // Compiles NativeLibraryConfig.java
+        task "javacppCompileJava$variantName"(type: JavaCompile) {
+            include 'com/senter/lastools/NativeLibraryConfig.java'
+            source = javaCompile.source
+            classpath = javaCompile.classpath
+            destinationDir = javaCompile.destinationDir
+        }
+
+        // Parses included .h header files and outputs <TargetClassName>.java configured in NativeLibraryConfig.java
+        task "javacppBuildParser$variantName"(type: org.bytedeco.gradle.javacpp.BuildTask) {
+            dependsOn "javacppCompileJava$variantName"
+            classPath = [javaCompile.destinationDir]
+            // includePath contains places to search for header files configured in NativeLibraryConfig.java
+            includePath = ["$projectDir/src/main/cpp/LASzip/src", "$projectDir/src/main/cpp/LASlib/inc"]
+            classOrPackageNames = ['com.senter.lastools.NativeLibraryConfig']
+            outputDirectory = file("$projectDir/src/main/java/")
+        }
+
+        // Compiles <TargetClassName>.java and everything else
+        javaCompile.dependsOn "javacppBuildParser$variantName"
+
+        // Generates jnijavacpp.cpp and <Library Name>.cpp
+        task "javacppBuildCompiler$variantName"(type: org.bytedeco.gradle.javacpp.BuildTask) {
+            dependsOn javaCompile
+            classPath = [javaCompile.destinationDir]
+            classOrPackageNames = ['com.senter.lastools.LasLib']
+            compile = false
+            deleteJniFiles = false
+            outputDirectory = file("$projectDir/src/main/cpp/LASlib/")
+        }
+
+        // Picks up the C++ files listed in CMakeLists.txt
+        generateJson.dependsOn "javacppBuildCompiler$variantName"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'org.bytedeco:javacpp:1.5.6'
+
+}
