@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.bytedeco</groupId>
     <artifactId>opencv-stitching-jlink</artifactId>
-    <version>1.5.5</version>
+    <version>1.5.7</version>
     <packaging>jlink</packaging>
     <properties>
         <outputModule>org.bytedeco.samples.stitching</outputModule>
@@ -14,7 +14,7 @@
         <dependency>
             <groupId>org.bytedeco</groupId>
             <artifactId>opencv-platform</artifactId>
-            <version>4.5.1-1.5.5</version>
+            <version>4.5.5-1.5.7</version>
         </dependency>
     </dependencies>
 
@@ -22,7 +22,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.8.1</version>
                 <configuration>
                     <source>11</source>
                     <target>11</target>

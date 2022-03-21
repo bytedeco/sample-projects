@@ -2,15 +2,17 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.bytedeco</groupId>
   <artifactId>opencv-stitching</artifactId>
-  <version>1.5.4</version>
+  <version>1.5.7</version>
   <properties>
     <exec.mainClass>Stitching</exec.mainClass>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
   </properties>
   <dependencies>
     <dependency>
       <groupId>org.bytedeco</groupId>
       <artifactId>opencv-platform</artifactId>
-      <version>4.4.0-1.5.4</version>
+      <version>4.5.5-1.5.7</version>
     </dependency>
   </dependencies>
 </project>

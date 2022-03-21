@@ -1,9 +1,9 @@
 Sample project for using OpenCV from a generated Java binding made with [Bytedeco's](http://bytedeco.org/) JavaCPP technology.
  * A native executable image version of the [original stitching sample project](../opencv-stitching) using [GraalVM](https://www.graalvm.org/) and its AOT compilation.
 
-For this to work, please first download and install GraalVM 20.1.0, making sure that the `native-image` tool also gets installed:
+For this to work, please first download and install GraalVM 21.2.0, making sure that the `native-image` tool also gets installed:
  * https://www.graalvm.org/downloads/
- * https://www.graalvm.org/docs/reference-manual/native-image/
+ * https://www.graalvm.org/dev/docs/getting-started/#native-images
 
 Then we can build this project using Maven as usual, but it must be executed with GraalVM as the JDK, for example, on the command line, run:
 

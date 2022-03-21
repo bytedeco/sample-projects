@@ -2,9 +2,9 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.bytedeco</groupId>
     <artifactId>opencv-stitching-native</artifactId>
-    <version>1.5.4</version>
+    <version>1.5.7</version>
     <properties>
-        <graalvm.version>20.1.0</graalvm.version>
+        <graalvm.version>21.2.0</graalvm.version>
         <exec.mainClass>org.bytedeco.samples.Stitching</exec.mainClass>
     </properties>
 
@@ -18,7 +18,7 @@
         <dependency>
             <groupId>org.bytedeco</groupId>
             <artifactId>opencv-platform</artifactId>
-            <version>4.4.0-1.5.4</version>
+            <version>4.5.5-1.5.7</version>
         </dependency>
     </dependencies>
 
@@ -39,7 +39,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.8.1</version>
             </plugin>
             <plugin>
                 <groupId>org.graalvm.nativeimage</groupId>
