@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "org.bytedeco.javacv_android_example"
@@ -10,6 +10,11 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+
+        ndk {
+            // in case you want to use some arch only
+            abiFilters "armeabi-v7a"//, "arm64-v8a"
+        }
     }
     dexOptions {
         javaMaxHeapSize "2G"
@@ -34,8 +39,9 @@ task javacppExtract(type: Copy) {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.3.0'
-    implementation group: 'org.bytedeco', name: 'javacv', version: '1.5.6'
-    javacpp group: 'org.bytedeco', name: 'openblas-platform', version: '0.3.17-1.5.6'
-    javacpp group: 'org.bytedeco', name: 'opencv-platform', version: '4.5.3-1.5.6'
-    javacpp group: 'org.bytedeco', name: 'ffmpeg-platform', version: '4.4-1.5.6'
+    implementation group: 'org.bytedeco', name: 'javacv', version: '1.5.9'
+    javacpp group: 'org.bytedeco', name: 'openblas-platform', version: '0.3.23-1.5.9'
+    javacpp group: 'org.bytedeco', name: 'opencv-platform', version: '4.7.0-1.5.9'
+    javacpp group: 'org.bytedeco', name: 'ffmpeg-platform', version: '6.0-1.5.9'
+
 }
