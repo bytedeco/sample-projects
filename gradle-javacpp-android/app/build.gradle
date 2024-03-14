@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId "com.example.myapplication"
         minSdkVersion 19
-        targetSdkVersion 30
+        targetSdkVersion 34
         versionCode 1
         versionName "1.0"
 
@@ -41,6 +41,8 @@ android {
     }
 }
 
+// For library variant, please use android.libraryVariants.
+// (see in plugins if you are using com.android.application or com.android.library)
 android.applicationVariants.configureEach { variant ->
     def variantName = variant.name.capitalize() // either "Debug" or "Release"
     def javaCompile = project.tasks.named("compile${variantName}JavaWithJavac").get()
